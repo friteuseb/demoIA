@@ -1,0 +1,46 @@
+# Environnements virtuels
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Configuration d'outils spécifiques
+.env
+.env.*
+*.ini
+*.cfg
+*.yaml
+*.yml
+
+# Fichiers journaux
+*.log
+*.out
+*.err
+
+# Données temporaires et fichiers générés
+*.bak
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+
+# Fichiers spécifiques aux IDE
+.idea/
+.vscode/
+*.sublime-workspace
+
+# Caches d'outils Python
+.eggs/
+.mypy_cache/
+.pytest_cache/
+.tox/
+.coverage
+*.egg-info/
+*.egg
+
+# Caches de compilation
+build/
+dist/
+
+# Spécifique à Jupyter Notebook
+.ipynb_checkpoints/

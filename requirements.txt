@@ -1,0 +1,10 @@
+python-dotenv
+torch
+ultralytics
+streamlit
+opencv-python
+openai
+pandas
+numpy
+scikit-learn
+plotly
