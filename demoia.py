@@ -20,28 +20,184 @@ def main():
         ["Assistant IA", "Analyse Prédictive", "Vision Industrielle", "YOLO Detection"]
     )
     
+
     if demo == "Assistant IA":
-        st.header("Assistant IA pour l'Industrie")
-        prompt = st.text_area("Question:", placeholder="Ex: Comment optimiser la maintenance prédictive ?")
-        
-        if st.button("Générer"):
-            try:
-                client = OpenAI()
-                response = client.chat.completions.create(
-                    model="gpt-3.5-turbo",
-                    messages=[{
-                        "role": "system",
-                        "content": "Expert en industrie 4.0, BIM et maintenance prédictive."
-                    }, {
-                        "role": "user",
-                        "content": prompt
-                    }]
-                )
-                st.write(response.choices[0].message.content)
-            except Exception as e:
-                st.error(f"Erreur API: {e}")
+            st.header("Assistant IA Industriel")
+            
+            assistant_type = st.selectbox(
+                "Type d'assistance",
+                ["Maintenance Prédictive", "Diagnostic Panne", "Documentation Technique", "Optimisation Process"]
+            )
+            
+            if assistant_type == "Maintenance Prédictive":
+                equipment = st.text_input("Équipement concerné")
+                symptoms = st.text_area("Symptômes observés")
+                history = st.text_area("Historique maintenance")
+                
+                if st.button("Analyser"):
+                    prompt = f"""
+                    En tant qu'expert en maintenance prédictive pour {equipment}:
+                    - Symptômes: {symptoms}
+                    - Historique: {history}
+                    
+                    1. Analyser les risques potentiels
+                    2. Suggérer un plan de maintenance
+                    3. Proposer des indicateurs de suivi
+                    """
+                    try:
+                        client = OpenAI()
+                        response = client.chat.completions.create(
+                            model="gpt-3.5-turbo",
+                            messages=[
+                                {"role": "system", "content": "Expert en maintenance industrielle et prédictive"},
+                                {"role": "user", "content": prompt}
+                            ]
+                        )
+                        st.write(response.choices[0].message.content)
+                        st.session_state.generated_content = response.choices[0].message.content
+                        st.session_state.suggested_actions = [
+                            "Planifier maintenance",
+                            "Mettre à jour historique",
+                            "Commander pièces",
+                            "Former équipe"
+                        ]
+                    except Exception as e:
+                        st.error(f"Erreur API: {e}")
+                    
+            elif assistant_type == "Diagnostic Panne":
+                error_code = st.text_input("Code erreur")
+                machine_state = st.text_area("État actuel de la machine")
+                
+                if st.button("Diagnostiquer"):
+                    prompt = f"""
+                    Diagnostic panne machine industrielle:
+                    - Code erreur: {error_code}
+                    - État: {machine_state}
+                    
+                    Fournir:
+                    1. Analyse cause racine
+                    2. Solutions immédiates
+                    3. Actions préventives
+                    """
+                    try:
+                        client = OpenAI()
+                        response = client.chat.completions.create(
+                            model="gpt-3.5-turbo",
+                            messages=[
+                                {"role": "system", "content": "Expert en diagnostic de pannes industrielles"},
+                                {"role": "user", "content": prompt}
+                            ]
+                        )
+                        st.write(response.choices[0].message.content)
+                        st.session_state.generated_content = response.choices[0].message.content
+                        st.session_state.suggested_actions = [
+                            "Intervention immédiate",
+                            "Commander pièces",
+                            "Mettre à jour procédures",
+                            "Former opérateurs"
+                        ]
+                    except Exception as e:
+                        st.error(f"Erreur API: {e}")
+                    
+            elif assistant_type == "Documentation Technique":
+                machine_type = st.text_input("Type de machine")
+                doc_type = st.selectbox("Type de document", 
+                    ["Procédure maintenance", "Guide dépannage", "Fiche sécurité", "Checklist démarrage"])
+                
+                if st.button("Générer"):
+                    prompt = f"""
+                    Générer {doc_type} pour {machine_type}.
+                    Format structuré avec:
+                    1. Prérequis
+                    2. Étapes détaillées
+                    3. Points de contrôle
+                    4. Mesures sécurité
+                    """
+                    try:
+                        client = OpenAI()
+                        response = client.chat.completions.create(
+                            model="gpt-3.5-turbo",
+                            messages=[
+                                {"role": "system", "content": "Expert en documentation technique industrielle"},
+                                {"role": "user", "content": prompt}
+                            ]
+                        )
+                        st.write(response.choices[0].message.content)
+                        st.session_state.generated_content = response.choices[0].message.content
+                        st.session_state.suggested_actions = [
+                            "Valider document",
+                            "Distribuer équipe",
+                            "Archiver version",
+                            "Planifier révision"
+                        ]
+                    except Exception as e:
+                        st.error(f"Erreur API: {e}")
+                    
+            elif assistant_type == "Optimisation Process":
+                process = st.text_input("Process à optimiser")
+                current_metrics = st.text_area("Métriques actuelles")
+                constraints = st.text_area("Contraintes")
+                
+                if st.button("Optimiser"):
+                    prompt = f"""
+                    Optimisation process industriel:
+                    - Process: {process}
+                    - Métriques: {current_metrics}
+                    - Contraintes: {constraints}
+                    
+                    Fournir:
+                    1. Analyse performance actuelle
+                    2. Recommandations d'optimisation
+                    3. KPIs à suivre
+                    4. Plan d'implémentation
+                    """
+                    try:
+                        client = OpenAI()
+                        response = client.chat.completions.create(
+                            model="gpt-3.5-turbo",
+                            messages=[
+                                {"role": "system", "content": "Expert en optimisation de process industriels"},
+                                {"role": "user", "content": prompt}
+                            ]
+                        )
+                        st.write(response.choices[0].message.content)
+                        st.session_state.generated_content = response.choices[0].message.content
+                        st.session_state.suggested_actions = [
+                            "Valider plan",
+                            "Former équipes",
+                            "Mettre à jour KPIs",
+                            "Planifier suivi"
+                        ]
+                    except Exception as e:
+                        st.error(f"Erreur API: {e}")
 
-
+            if st.session_state.get('generated_content'):
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.markdown("### Réponse")
+                    st.write(st.session_state.generated_content)
+                with col2:
+                    st.markdown("### Actions suggérées")
+                    for action in st.session_state.suggested_actions:
+                        st.checkbox(action, key=action)
+                    
+                    if st.button("Générer rapport"):
+                        report = f"""# Rapport {assistant_type}
+                        
+                        ## Analyse
+                        {st.session_state.generated_content}
+                        
+                        ## Actions à suivre
+                        {chr(10).join(['- ' + action for action in st.session_state.suggested_actions])}
+                        """
+                        
+                        st.download_button(
+                            "Télécharger Rapport",
+                            report,
+                            file_name="rapport_industriel.md",
+                            mime="text/markdown"
+                        )
+                        
 
     elif demo == "Analyse Prédictive":
             st.header("Détection d'Anomalies Industrielles")
